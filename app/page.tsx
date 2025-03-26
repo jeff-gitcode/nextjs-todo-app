@@ -1,57 +1,51 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { TodoRepository } from './infrastructure/repositories/TodoRepository';
-import { Todo } from './domain/entities/Todo';
-import TodoList from './presentation/components/TodoList';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import TodoList from "@/presentation/components/TodoList";
+import { Button } from "@/components/ui/button";
 
-const todoRepository = new TodoRepository();
-
-const todoSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-});
-
-type TodoFormValues = z.infer<typeof todoSchema>;
+interface Todo {
+  id: string;
+  title: string;
+}
 
 export default function Home() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TodoFormValues>({
-    resolver: zodResolver(todoSchema),
-  });
+  const [todos, setTodos] = useState<Todo[]>([
+    { id: "1", title: "Learn React" },
+    { id: "2", title: "Build a Todo App" },
+  ]);
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      const fetchedTodos = await todoRepository.getTodos();
-      setTodos(fetchedTodos);
-    };
+  const handleUpdate = (id: string) => {
+    // Navigate to the TodoItem page dynamically
+    router.push(`/presentation/components/todo/${id}`);
+  };
 
-    fetchTodos();
-  }, []);
+  const handleDelete = (id: string) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  };
 
-  const onSubmit = (data: TodoFormValues) => {
-    const newTodo: Todo = { id: Date.now().toString(), title: data.title };
+  const handleAddTodo = () => {
+    // Generate a new Todo with a unique ID
+    const newTodoId = Date.now().toString();
+    const newTodo: Todo = { id: newTodoId, title: "" };
+
+    // Add the new Todo to the list
     setTodos((prevTodos) => [...prevTodos, newTodo]);
+
+    // Redirect to the TodoItem page for the new Todo
+    router.push(`/presentation/components/todo/${newTodoId}`);
   };
 
   return (
-    <div>
-      <h1>Todo List</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register("title")} placeholder="Enter a new todo" />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-        <Button type="submit">Add Todo</Button>
-      </form>
-      <TodoList todos={todos} />
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Todo List</h1>
+      <TodoList todos={todos} onUpdate={handleUpdate} onDelete={handleDelete} />
+      <Button className="mt-4" onClick={handleAddTodo}>
+        Add Todo
+      </Button>
     </div>
   );
 }
