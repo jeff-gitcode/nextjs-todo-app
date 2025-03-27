@@ -1,0 +1,37 @@
+@baseUrl = http://localhost:3000/presentation
+@todoId = 1
+### Get All Todos
+GET {{baseUrl}}/api/todos
+Content-Type: application/json
+
+###
+
+### Add a New Todo
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+
+{
+  "title": "New Todo"
+}
+
+###
+
+### Get a Todo by ID
+GET {{baseUrl}}/api/todos/{{todoId}}
+Content-Type: application/json
+
+###
+
+### Update a Todo
+PUT {{baseUrl}}/api/todos/{{todoId}}
+Content-Type: application/json
+
+{
+  "title": "Updated Todo Title"
+}
+
+###
+
+### Delete a Todo
+DELETE {{baseUrl}}/api/todos/{{todoId}}
+Content-Type: application/json

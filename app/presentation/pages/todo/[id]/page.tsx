@@ -16,7 +16,6 @@ export default function TodoItemPage({ params }: TodoItemPageProps) {
             <h1 className="text-2xl font-bold mb-4">Todo Item</h1>
             <TodoItem
                 id={params.id}
-                title={params.title}
                 onUpdate={handleUpdate}
                 onDelete={handleDelete}
             />
