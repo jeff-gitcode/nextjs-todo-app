@@ -13,6 +13,14 @@ export default class ApiService {
         return response.json();
     }
 
+    async fetchTodo(id: string): Promise<any> {
+        const response = await fetch(`${this.baseUrl}/${id}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch todo');
+        }
+        return response.json();
+    }
+
     async addTodo(todo: any): Promise<any> {
         const response = await fetch(this.baseUrl, {
             method: 'POST',

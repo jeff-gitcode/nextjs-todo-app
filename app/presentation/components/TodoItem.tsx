@@ -1,9 +1,6 @@
 "use client";
 
 import { FC } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,29 +10,29 @@ import {
     FormControl,
     FormMessage,
 } from "@/components/ui/form";
+import { TodoFormValues } from "@/domain/schemas/todoSchema";
+import { useTodoItem } from "../hooks/useTodoItem";
 
 interface TodoItemProps {
     id: string;
-    title: string;
     onUpdate: (id: string, title: string) => void;
     onDelete: (id: string) => void;
 }
 
-const todoSchema = z.object({
-    title: z.string().min(1, "Title is required").max(100, "Title is too long"),
-});
-
-type TodoFormValues = z.infer<typeof todoSchema>;
-
-const TodoItem: FC<TodoItemProps> = ({ id, title, onUpdate, onDelete }) => {
-    const form = useForm<TodoFormValues>({
-        resolver: zodResolver(todoSchema),
-        defaultValues: { title },
-    });
+const TodoItem: FC<TodoItemProps> = ({ id, onUpdate, onDelete }) => {
+    const { form, loading, error } = useTodoItem({ id });
 
     const onSubmit = (data: TodoFormValues) => {
         onUpdate(id, data.title); // Call the onUpdate handler with the updated title
     };
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p className="text-red-500">{error}</p>;
+    }
 
     return (
         <Form {...form}>
