@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Todo } from "@/domain/entities/Todo";
 
-export function useTodoList() {
+export function useTodoListFromMockData() {
     const router = useRouter();
     const [todos, setTodos] = useState<Todo[]>([
         { id: "1", title: "Learn React" },
@@ -16,11 +16,11 @@ export function useTodoList() {
     };
 
     const navigateToTodoList = () => {
-        router.push("/presentation/pages/todo");
+        router.push("/pages/todo");
     };
 
     const navigateToTodoItem = (id: string) => {
-        router.push(`/presentation/pages/todo/${id}`);
+        router.push(`/pages/todo/${id}`);
     };
 
     const handleUpdate = (id: string, updatedTitle: string) => {

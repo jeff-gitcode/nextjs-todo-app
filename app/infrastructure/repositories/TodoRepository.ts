@@ -2,7 +2,11 @@ import { ITodoRepository } from "app/application/interfaces/ITodoRepository";
 import { Todo } from "app/domain/entities/Todo";
 
 export class TodoRepository implements ITodoRepository {
-    private todos: Todo[] = [];
+    private todos: Todo[] = [
+        new Todo("1", "Todo 1"),
+        new Todo("2", "Todo 2"),
+        new Todo("3", "Todo 3"),
+    ];
     private id: number = 1;
 
     async addTodo(todo: Todo): Promise<void> {

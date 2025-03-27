@@ -2,11 +2,10 @@ import type { Metadata } from 'next'
 
 // These styles apply to every route in the application
 import './globals.css'
-import NavMenu from "@/presentation/components/NavMenu";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactNode } from "react";
+import NavMenu from "@/(presentation)/components/NavMenu";
+import { Providers } from './providers';
+import { ReactNode } from 'react';
 
-const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -15,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <QueryClientProvider client={queryClient}>
-            <html lang="en">
+        <html lang="en">
+            <Providers>
                 <body>
                     {/* Navigation Menu */}
                     <header className="bg-gray-100 shadow-md">
@@ -27,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     {/* Main Content */}
                     <main className="container mx-auto p-4">{children}</main>
                 </body>
-            </html>
-        </QueryClientProvider>
+            </Providers>
+        </html>
     )
 }

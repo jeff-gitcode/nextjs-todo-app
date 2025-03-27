@@ -1,6 +1,6 @@
 "use client";
 
-import ErrorBoundary from "@/presentation/components/ErrorBoundary";
+import ErrorBoundary from "@/(presentation)/components/ErrorBoundary";
 
 export default function Home() {
   return (

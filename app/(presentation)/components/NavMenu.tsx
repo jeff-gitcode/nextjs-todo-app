@@ -11,7 +11,7 @@ export default function NavMenu() {
     };
 
     const navigateToTodo = () => {
-        router.push("/presentation/pages/todo");
+        router.push("/pages/todo");
     };
 
     return (

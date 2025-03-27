@@ -12,18 +12,19 @@ import {
 } from "@/components/ui/form";
 import { TodoFormValues } from "@/domain/schemas/todoSchema";
 import { useTodoItem } from "../hooks/useTodoItem";
+import { Todo } from "@/domain/entities/Todo";
 
 interface TodoItemProps {
-    id: string;
+    todo: Todo;
     onUpdate: (id: string, title: string) => void;
     onDelete: (id: string) => void;
 }
 
-const TodoItem: FC<TodoItemProps> = ({ id, onUpdate, onDelete }) => {
-    const { form, loading, error } = useTodoItem({ id });
+const TodoItem: FC<TodoItemProps> = ({ todo, onUpdate, onDelete }) => {
+    const { form, loading, error } = useTodoItem();
 
     const onSubmit = (data: TodoFormValues) => {
-        onUpdate(id, data.title); // Call the onUpdate handler with the updated title
+        onUpdate(todo.id, data.title); // Call the onUpdate handler with the updated title
     };
 
     if (loading) {
@@ -44,7 +45,7 @@ const TodoItem: FC<TodoItemProps> = ({ id, onUpdate, onDelete }) => {
                 <FormItem>
                     <FormLabel>ID</FormLabel>
                     <FormControl>
-                        <Input value={id} readOnly className="w-full bg-gray-100" />
+                        <Input value={todo.id} readOnly className="w-full bg-gray-100" />
                     </FormControl>
                 </FormItem>
 
@@ -69,7 +70,7 @@ const TodoItem: FC<TodoItemProps> = ({ id, onUpdate, onDelete }) => {
                     <Button
                         type="button"
                         variant="destructive"
-                        onClick={() => onDelete(id)}
+                        onClick={() => onDelete(todo.id)}
                     >
                         Delete
                     </Button>

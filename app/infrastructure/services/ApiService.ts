@@ -1,46 +1,60 @@
-export default class ApiService {
-    private baseUrl: string;
+export default class ApiService<T> {
+    private readonly baseUrl: string;
 
-    constructor() {
-        this.baseUrl = 'https://api.example.com/todos'; // Replace with your actual API URL
+    constructor(baseUrl: string) {
+        this.baseUrl = baseUrl; // Base URL for the API
     }
 
-    async fetchTodos(): Promise<any> {
+    async getAll(): Promise<T[]> {
         const response = await fetch(this.baseUrl);
         if (!response.ok) {
-            throw new Error('Failed to fetch todos');
+            throw new Error(`Failed to fetch resources: ${response.statusText}`);
         }
         return response.json();
     }
 
-    async fetchTodo(id: string): Promise<any> {
+    async getById(id: string): Promise<T> {
         const response = await fetch(`${this.baseUrl}/${id}`);
         if (!response.ok) {
-            throw new Error('Failed to fetch todo');
+            throw new Error(`Failed to fetch resource with ID ${id}: ${response.statusText}`);
         }
         return response.json();
     }
 
-    async addTodo(todo: any): Promise<any> {
+    async create(data: T): Promise<T> {
         const response = await fetch(this.baseUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(todo),
+            body: JSON.stringify(data),
         });
         if (!response.ok) {
-            throw new Error('Failed to add todo');
+            throw new Error(`Failed to create resource: ${response.statusText}`);
         }
         return response.json();
     }
 
-    async deleteTodo(id: string): Promise<void> {
+    async update(id: string, data: Partial<T>): Promise<T> {
+        const response = await fetch(`${this.baseUrl}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to update resource with ID ${id}: ${response.statusText}`);
+        }
+        return response.json();
+    }
+
+    async delete(id: string): Promise<void> {
         const response = await fetch(`${this.baseUrl}/${id}`, {
             method: 'DELETE',
         });
         if (!response.ok) {
-            throw new Error('Failed to delete todo');
+            throw new Error(`Failed to delete resource with ID ${id}: ${response.statusText}`);
         }
     }
 }

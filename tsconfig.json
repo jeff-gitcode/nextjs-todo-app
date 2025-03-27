@@ -6,6 +6,8 @@
       "dom.iterable",
       "esnext"
     ],
+    "sourceMap": true,
+    "inlineSources": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -35,6 +37,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts"
+    // ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

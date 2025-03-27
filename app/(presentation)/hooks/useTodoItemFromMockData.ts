@@ -10,7 +10,7 @@ interface UseTodoItemProps {
     id: string;
 }
 
-export function useTodoItem({ id }: UseTodoItemProps) {
+export function useTodoItemFromMockData({ id }: UseTodoItemProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -23,9 +23,9 @@ export function useTodoItem({ id }: UseTodoItemProps) {
         const fetchTodo = async () => {
             try {
                 setLoading(true);
-                const apiService = new ApiService();
-                const todo = await apiService.fetchTodo(id);
-                form.reset({ title: todo.title }); // Populate the form with fetched data
+                // const apiService = new ApiService();
+                // const todo = await apiService.getById(id);
+                form.reset({ title: "" }); // Populate the form with fetched data
             } catch (err) {
                 setError("Failed to fetch todo");
                 console.error(err);

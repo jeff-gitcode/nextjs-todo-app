@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:3000/presentation
+@baseUrl = http://localhost:3000
 @todoId = 1
 ### Get All Todos
 GET {{baseUrl}}/api/todos
