@@ -6,13 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TodoFormValues, todoSchema } from "@/domain/schemas/todoSchema";
 import { TodoApiService } from "@/infrastructure/services/TodoApiService";
 import { Todo } from "@/domain/entities/Todo";
-import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 
 const todoApiService = new TodoApiService();
 
 export function useTodoItem() {
-  const router = useRouter();
 
   const pathname = usePathname();
 
@@ -20,24 +18,50 @@ export function useTodoItem() {
 
   const queryClient = useQueryClient();
 
-  const form = useForm<TodoFormValues>({
-    resolver: zodResolver(todoSchema),
-    defaultValues: { id: "", title: "" },
-  });
 
   // Use TanStack Query to fetch the todo by ID
   const { data: todo, isLoading, isError, error
   } = useQuery(
     {
       queryKey: ["todo", id], // Unique query key for this query
-      queryFn: () => todoApiService.getById(id), // Fetch the todo by ID
-      enabled: !!id, // Enable only if id is provided
+      queryFn: async () => {
+        if (!id || id === "new") {
+          return new Todo("", "");
+        }
+        return await todoApiService.getById(id);
+      },// Fetch the todo by ID
+      enabled: !!id && id !== "new", // Enable only if id is provided
       refetchOnWindowFocus: false, // Disable refetch on window
       // onSuccess: (data) => {
       //   form.reset({ title: data.title }); // Populate the form with fetched data
       // },
     }
   );
+
+  const form = useForm<TodoFormValues>({
+    resolver: zodResolver(todoSchema),
+    defaultValues: { id: todo?.id || "", title: todo?.title || "" },
+  });
+
+  const addTodoMutation = useMutation(
+    {
+      mutationFn: (title: string) => todoApiService.create({ id: "", title }),
+      onSuccess: (newTodo: Todo) => {
+        console.log("New todo", newTodo);
+
+        // router.push(`/pages/todo/${newTodo.id}`);
+      },
+      onError: (_, __, context) => {
+        // queryClient.setQueryData(["todos"], context.oldTodos);
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries({ queryKey: ["todos"] });
+      },
+      mutationKey: ["addTodo"],
+    }
+  );
+
+
 
   const updateTodoMutation = useMutation(
     {
@@ -56,8 +80,11 @@ export function useTodoItem() {
   );
 
   const handleUpdate = (id: string, title: string): void => {
-    if (!todo) return;
-    updateTodoMutation.mutate({ ...todo, title: title });
+    if (!todo) {
+      addTodoMutation.mutate(title);
+    } else {
+      updateTodoMutation.mutate({ ...todo, title: title });
+    }
   };
 
   const newTodo = todo || new Todo("", "");

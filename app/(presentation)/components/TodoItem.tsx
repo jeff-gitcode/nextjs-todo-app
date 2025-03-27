@@ -21,8 +21,9 @@ interface TodoItemProps {
 }
 
 const TodoItem: FC<TodoItemProps> = ({ todo, onUpdate, onDelete }) => {
-    const { form, loading, error } = useTodoItem();
+    const { todo: newTodo, form, loading, error } = useTodoItem();
 
+    console.log("TodoItem", todo, newTodo);
     const onSubmit = (data: TodoFormValues) => {
         onUpdate(todo.id, data.title); // Call the onUpdate handler with the updated title
     };
@@ -65,7 +66,7 @@ const TodoItem: FC<TodoItemProps> = ({ todo, onUpdate, onDelete }) => {
                 {/* Action Buttons */}
                 <div className="flex space-x-2">
                     <Button type="submit" variant="secondary">
-                        Update
+                        {todo.id ? "Update" : "Create"}
                     </Button>
                     <Button
                         type="button"

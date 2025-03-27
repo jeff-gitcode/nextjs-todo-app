@@ -10,7 +10,7 @@ export default class ApiService<T> {
         if (!response.ok) {
             throw new Error(`Failed to fetch resources: ${response.statusText}`);
         }
-        return response.json();
+        return await response.json();
     }
 
     async getById(id: string): Promise<T> {
@@ -18,7 +18,7 @@ export default class ApiService<T> {
         if (!response.ok) {
             throw new Error(`Failed to fetch resource with ID ${id}: ${response.statusText}`);
         }
-        return response.json();
+        return await response.json();
     }
 
     async create(data: T): Promise<T> {
@@ -32,7 +32,7 @@ export default class ApiService<T> {
         if (!response.ok) {
             throw new Error(`Failed to create resource: ${response.statusText}`);
         }
-        return response.json();
+        return await response.json();
     }
 
     async update(id: string, data: Partial<T>): Promise<T> {
@@ -46,7 +46,7 @@ export default class ApiService<T> {
         if (!response.ok) {
             throw new Error(`Failed to update resource with ID ${id}: ${response.statusText}`);
         }
-        return response.json();
+        return await response.json();
     }
 
     async delete(id: string): Promise<void> {

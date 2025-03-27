@@ -14,23 +14,7 @@ export function useTodoList() {
     const { data: todos = [], isLoading, isError } = useQuery(
         {
             queryKey: ["todos"],
-            queryFn: () => todoApiService.getAll(),
-        }
-    );
-
-    const addTodoMutation = useMutation(
-        {
-            mutationFn: (title: string) => todoApiService.create({ id: "", title }),
-            onSuccess: (newTodo: Todo) => {
-                router.push(`/todos/${newTodo.id}`);
-            },
-            onError: (_, __, context) => {
-                // queryClient.setQueryData(["todos"], context.oldTodos);
-            },
-            onSettled: () => {
-                queryClient.invalidateQueries({ queryKey: ["todos"] });
-            },
-            mutationKey: ["addTodo"],
+            queryFn: () => todoApiService.getAll()
         }
     );
 
@@ -51,7 +35,8 @@ export function useTodoList() {
     );
 
     const handleAddTodo = (title: string) => {
-        addTodoMutation.mutate(title);
+        router.push(`/pages/todo/new`);
+        // addTodoMutation.mutate(title);
     };
 
     const handleDelete = (id: string) => {
@@ -59,7 +44,7 @@ export function useTodoList() {
     };
 
     const navigateToTodoItem = (id: string) => {
-        router.push(`/todos/${id}`);
+        router.push(`/pages/todo/${id}`);
     };
 
     const navigateToHome = () => {

@@ -4,6 +4,7 @@ import { Todo } from "@/domain/entities/Todo";
 
 // Get all todos
 export async function GET(): Promise<Response> {
+    console.log("GET todos");
     const todos = await useCases.getTodos.execute();
     return NextResponse.json(todos);
 }

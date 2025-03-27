@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
-            <Providers>
-                <body>
+            <body>
+                <Providers>
                     {/* Navigation Menu */}
                     <header className="bg-gray-100 shadow-md">
                         <div className="container mx-auto p-4">
@@ -25,8 +25,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     </header>
                     {/* Main Content */}
                     <main className="container mx-auto p-4">{children}</main>
-                </body>
-            </Providers>
+                </Providers>
+            </body>
         </html>
     )
 }
