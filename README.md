@@ -72,11 +72,22 @@ nextjs-todo-app
 
 ## Technologies Used
 
-- Next.js
-- TypeScript
-- React
-- Tailwind CSS
-- Clean Architecture principles
-- `react-hook-form` for form handling
-- `zod` for schema validation
-- `shadcn/ui` for UI components
+## Technologies Used
+
+- **Next.js**: Framework for server-rendered React applications.
+- **React**: JavaScript library for building user interfaces.
+- **TypeScript**: Strongly typed programming language for JavaScript.
+- **React Query (@tanstack/react-query)**: Data fetching and state management library.
+- **ShadCN UI**: Component library for building accessible and customizable UI.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Sonner**: Library for toast notifications.
+- **PostCSS**: Tool for transforming CSS with JavaScript plugins.
+- **ESLint**: Linter for identifying and fixing JavaScript code issues.
+- **Husky**: Git hooks for enforcing pre-commit checks.
+- **Lucide React**: Icon library for React.
+- **React Hook Form**: Library for managing form state and validation.
+- **Class Variance Authority (CVA)**: Utility for managing class names in Tailwind CSS.
+- **Tailwind Merge**: Utility for merging Tailwind CSS class names.
+- **Autoprefixer**: PostCSS plugin to parse CSS and add vendor prefixes.
+- **Zod**: TypeScript-first schema validation library.
+- **Cross-Env**: Utility for setting environment variables across platforms.
