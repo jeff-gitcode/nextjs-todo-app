@@ -68,13 +68,13 @@ const TodoItem: FC<TodoItemProps> = ({ todo, onUpdate, onDelete }) => {
                     <Button type="submit" variant="secondary">
                         {todo.id ? "Update" : "Create"}
                     </Button>
-                    <Button
+                    {/* <Button
                         type="button"
                         variant="destructive"
                         onClick={() => onDelete(todo.id)}
                     >
                         Delete
-                    </Button>
+                    </Button> */}
                 </div>
             </form>
         </Form>

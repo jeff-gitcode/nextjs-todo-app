@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 
 // These styles apply to every route in the application
 import './globals.css'
+import { ReactNode } from 'react';
+import { Toaster } from "sonner";
+
 import NavMenu from "@/(presentation)/components/NavMenu";
 import { Providers } from './providers';
-import { ReactNode } from 'react';
-
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         </div>
                     </header>
                     {/* Main Content */}
+                    <Toaster position="bottom-center" richColors />
                     <main className="container mx-auto p-4">{children}</main>
                 </Providers>
             </body>

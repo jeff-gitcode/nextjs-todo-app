@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { TodoApiService } from "@/infrastructure/services/TodoApiService";
-import { Todo } from "@/domain/entities/Todo";
+import { toast } from "sonner";
 
 const todoApiService = new TodoApiService();
 
@@ -22,9 +22,11 @@ export function useTodoList() {
         {
             mutationFn: (id: string) => todoApiService.delete(id),
             onSuccess: () => {
+                toast.success("Todo deleted successfully!");
                 queryClient.invalidateQueries({ queryKey: ["todos"] });
             },
             onError: (_, __, context) => {
+                toast.error("Failed to delete todo");
                 // queryClient.setQueryData(["todos"], context.oldTodos);
             },
             onSettled: () => {

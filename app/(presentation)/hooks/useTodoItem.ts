@@ -7,6 +7,7 @@ import { TodoFormValues, todoSchema } from "@/domain/schemas/todoSchema";
 import { TodoApiService } from "@/infrastructure/services/TodoApiService";
 import { Todo } from "@/domain/entities/Todo";
 import { usePathname } from "next/navigation";
+import { toast } from "sonner";
 
 const todoApiService = new TodoApiService();
 
@@ -48,10 +49,11 @@ export function useTodoItem() {
       mutationFn: (title: string) => todoApiService.create({ id: "", title }),
       onSuccess: (newTodo: Todo) => {
         console.log("New todo", newTodo);
-
+        toast.success("Todo added successfully!");
         // router.push(`/pages/todo/${newTodo.id}`);
       },
       onError: (_, __, context) => {
+        toast.error("Failed to add todo");
         // queryClient.setQueryData(["todos"], context.oldTodos);
       },
       onSettled: () => {
@@ -67,9 +69,11 @@ export function useTodoItem() {
     {
       mutationFn: (todo: Todo) => todoApiService.update(todo.id, todo),
       onSuccess: () => {
+        toast.success("Todo updated successfully!");
         queryClient.invalidateQueries({ queryKey: ["todos"] });
       },
       onError: (_, __, context) => {
+        toast.error("Failed to update todo");
         // queryClient.setQueryData(["todos"], context.oldTodos);
       },
       onSettled: () => {
