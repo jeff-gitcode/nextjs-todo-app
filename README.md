@@ -91,3 +91,14 @@ nextjs-todo-app
 - **Autoprefixer**: PostCSS plugin to parse CSS and add vendor prefixes.
 - **Zod**: TypeScript-first schema validation library.
 - **Cross-Env**: Utility for setting environment variables across platforms.
+
+## Continuous Integration
+
+This project uses GitHub Actions for Continuous Integration (CI). The workflow is triggered on every push or pull request to the `main` branch and includes the following steps:
+
+- **Install Dependencies**: Installs project dependencies using `npm ci`.
+- **Lint**: Runs ESLint to check for code quality issues.
+- **Test**: Executes the test suite using `npm test`.
+- **Build**: Builds the project to ensure it compiles successfully.
+
+The workflow file is located at `.github/workflows/ci.yml`.

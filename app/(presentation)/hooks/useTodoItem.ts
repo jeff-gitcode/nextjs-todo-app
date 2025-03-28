@@ -84,7 +84,7 @@ export function useTodoItem() {
   );
 
   const handleUpdate = (id: string, title: string): void => {
-    if (!todo) {
+    if (id === "") {
       addTodoMutation.mutate(title);
     } else {
       updateTodoMutation.mutate({ ...todo, title: title });
