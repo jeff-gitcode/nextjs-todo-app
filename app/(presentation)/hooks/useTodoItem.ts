@@ -39,10 +39,10 @@ export function useTodoItem() {
     }
   );
 
-  const form = useForm<TodoFormValues>({
-    resolver: zodResolver(todoSchema),
-    defaultValues: { id: todo?.id || "", title: todo?.title || "" },
-  });
+  // const form = useForm<TodoFormValues>({
+  //   resolver: zodResolver(todoSchema),
+  //   defaultValues: { id: todo?.id || "", title: todo?.title || "" },
+  // });
 
   const addTodoMutation = useMutation(
     {
@@ -95,7 +95,6 @@ export function useTodoItem() {
 
   return {
     todo: newTodo,
-    form,
     loading: isLoading,
     error: isError ? error?.message || "Failed to fetch todo" : null,
     handleUpdate,

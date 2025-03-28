@@ -1,69 +1,89 @@
-// File: TodoItem.test.tsx
-
+// FILE: TodoItem.test.tsx
+import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import TodoItem from "./TodoItem";
-import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { todoSchema } from "@/domain/schemas/todoSchema";
+import { useTodoItem } from "../hooks/useTodoItem";
+import { Todo } from "@/domain/entities/Todo";
+import { act } from "react";
+
+// Mock the `useTodoItem` hook
+jest.mock("../hooks/useTodoItem", () => ({
+  useTodoItem: jest.fn(),
+}));
 
 describe("TodoItem Component", () => {
-  const renderWithForm = (defaultValues = { id: "", title: "" }, onSubmit = jest.fn()) => {
-    const form = useForm({
-      resolver: zodResolver(todoSchema),
-      defaultValues,
-    });
+  const mockOnUpdate = jest.fn();
+  const mockOnDelete = jest.fn();
 
-    return render(
-      <FormProvider {...form}>
-        <TodoItem todo={defaultValues} onSubmit={onSubmit} />
-      </FormProvider>
-    );
+  const mockTodo: Todo = {
+    id: "1",
+    title: "Sample Todo",
   };
 
-  it("renders the title input field", () => {
-    renderWithForm();
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("renders the TodoItem component with the correct fields", () => {
+    (useTodoItem as jest.Mock).mockReturnValue({
+      todo: mockTodo,
+      loading: false,
+      error: null,
+    });
+
+    render(<TodoItem todo={mockTodo} onUpdate={mockOnUpdate} />);
+
+    expect(screen.getByText("ID")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("1")).toBeInTheDocument();
+    expect(screen.getByText("Title")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("Sample Todo")).toBeInTheDocument();
+  });
+
+  it("displays a loading message when loading is true", () => {
+    (useTodoItem as jest.Mock).mockReturnValue({
+      todo: { id: "", title: "" },
+      loading: true,
+      error: null,
+    });
+
+    render(<TodoItem todo={mockTodo} onUpdate={mockOnUpdate} />);
+
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+  });
+
+  it("displays an error message when there is an error", () => {
+    (useTodoItem as jest.Mock).mockReturnValue({
+      todo: { id: "", title: "" },
+      loading: false,
+      error: "Failed to load todo",
+    });
+
+    render(<TodoItem todo={mockTodo} onUpdate={mockOnUpdate} />);
+
+    expect(screen.getByText("Failed to load todo")).toBeInTheDocument();
+  });
+
+  it("calls onUpdate with the correct arguments when the form is submitted", async () => {
+    (useTodoItem as jest.Mock).mockReturnValue({
+      todo: mockTodo,
+      loading: false,
+      error: null,
+    });
+
+    render(<TodoItem todo={mockTodo} onUpdate={mockOnUpdate} />);
 
     const titleInput = screen.getByPlaceholderText("Enter title");
-    expect(titleInput).toBeInTheDocument();
-  });
 
-  it("displays the correct button text for creating a todo", () => {
-    renderWithForm();
+    await act(async () => {
+      fireEvent.change(titleInput, { target: { value: "Updated Todo" } });
+    });
 
-    const submitButton = screen.getByRole("button", { name: /create/i });
-    expect(submitButton).toBeInTheDocument();
-  });
+    const submitButton = screen.getByText("Update");
 
-  it("displays the correct button text for updating a todo", () => {
-    renderWithForm({ id: "1", title: "Sample Todo" });
+    await act(async () => {
+      fireEvent.click(submitButton);
+    });
 
-    const submitButton = screen.getByRole("button", { name: /update/i });
-    expect(submitButton).toBeInTheDocument();
-  });
-
-  it("calls onSubmit with the correct data when the form is submitted", async () => {
-    const onSubmit = jest.fn();
-    renderWithForm({ id: "", title: "" }, onSubmit);
-
-    const titleInput = screen.getByPlaceholderText("Enter title");
-    const submitButton = screen.getByRole("button", { name: /create/i });
-
-    fireEvent.change(titleInput, { target: { value: "New Todo" } });
-    fireEvent.click(submitButton);
-
-    expect(onSubmit).toHaveBeenCalledWith(
-      { id: "", title: "New Todo" },
-      expect.anything()
-    );
-  });
-
-  it("validates the title field and shows an error message if empty", async () => {
-    renderWithForm();
-
-    const submitButton = screen.getByRole("button", { name: /create/i });
-    fireEvent.click(submitButton);
-
-    const errorMessage = await screen.findByText("Title is required");
-    expect(errorMessage).toBeInTheDocument();
+    expect(mockOnUpdate).toHaveBeenCalledWith("1", "Updated Todo");
   });
 });

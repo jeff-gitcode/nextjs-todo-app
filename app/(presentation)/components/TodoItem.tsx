@@ -10,20 +10,27 @@ import {
     FormControl,
     FormMessage,
 } from "@/components/ui/form";
-import { TodoFormValues } from "@/domain/schemas/todoSchema";
+import { TodoFormValues, todoSchema } from "@/domain/schemas/todoSchema";
 import { useTodoItem } from "../hooks/useTodoItem";
 import { Todo } from "@/domain/entities/Todo";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface TodoItemProps {
     todo: Todo;
     onUpdate: (id: string, title: string) => void;
-    onDelete: (id: string) => void;
 }
 
-const TodoItem: FC<TodoItemProps> = ({ todo, onUpdate, onDelete }) => {
-    const { todo: newTodo, form, loading, error } = useTodoItem();
+const TodoItem: FC<TodoItemProps> = ({ todo, onUpdate }) => {
+    const { todo: newTodo, loading, error } = useTodoItem();
 
     console.log("TodoItem", todo, newTodo);
+
+    const form = useForm<TodoFormValues>({
+        resolver: zodResolver(todoSchema),
+        defaultValues: { id: newTodo.id, title: newTodo.title },
+    });
+
     const onSubmit = (data: TodoFormValues) => {
         onUpdate(todo.id, data.title); // Call the onUpdate handler with the updated title
     };
