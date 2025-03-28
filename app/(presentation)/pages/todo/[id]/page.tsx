@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useTodoItem } from "@/(presentation)/hooks/useTodoItem";
 
 export default function TodoItemPage() {
-    const { navigateToTodoList, handleDelete } = useTodoList();
+    const { navigateToTodoList } = useTodoList();
     const { todo, loading, error, handleUpdate } = useTodoItem();
 
     if (loading) {
@@ -23,7 +23,6 @@ export default function TodoItemPage() {
             <TodoItem
                 todo={todo}
                 onUpdate={handleUpdate}
-                onDelete={handleDelete}
             />
             <Button
                 variant="secondary"

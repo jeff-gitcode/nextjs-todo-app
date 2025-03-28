@@ -87,7 +87,11 @@ export function useTodoItem() {
     if (id === "") {
       addTodoMutation.mutate(title);
     } else {
-      updateTodoMutation.mutate({ ...todo, title: title });
+      const updatedTodo = new Todo(
+        id,
+        title
+      );
+      updateTodoMutation.mutate(updatedTodo);
     }
   };
 
