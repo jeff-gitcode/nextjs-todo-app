@@ -26,6 +26,7 @@ export const Default: Story = {
 
                 const mockUseRouter = createMock(actual, "useRouter");
                 mockUseRouter.mockImplementation(() => ({
+                    ...useRouter(),
                     push: fn(),
                 }));
 
