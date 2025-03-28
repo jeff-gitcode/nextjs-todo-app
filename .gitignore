@@ -5,3 +5,5 @@ dist/
 coverage/
 tsconfig.tsbuildinfo
 # .env
+
+*storybook.log
