@@ -44,7 +44,10 @@ nextjs-todo-app
 
 - Add new todo items
 - View existing todo items
+- Update todo items
 - Delete todo items
+- Error boundary for handling unexpected errors
+- Navigation menu for easy access to different pages
 
 ## Getting Started
 
@@ -72,8 +75,6 @@ nextjs-todo-app
 
 ## Technologies Used
 
-## Technologies Used
-
 - **Next.js**: Framework for server-rendered React applications.
 - **React**: JavaScript library for building user interfaces.
 - **TypeScript**: Strongly typed programming language for JavaScript.
@@ -91,6 +92,18 @@ nextjs-todo-app
 - **Autoprefixer**: PostCSS plugin to parse CSS and add vendor prefixes.
 - **Zod**: TypeScript-first schema validation library.
 - **Cross-Env**: Utility for setting environment variables across platforms.
+- **Storybook**: A tool for developing UI components in isolation. It allows you to build, test, and document components independently of your application.
+
+## Storybook
+
+This project uses **Storybook** for developing and testing UI components in isolation. Storybook provides a visual interface to interact with and test components, making it easier to ensure they work as expected.
+
+### Running Storybook
+
+To start Storybook locally, run the following command:
+
+```bash
+npm run storybook
 
 ## Continuous Integration
 
