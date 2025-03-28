@@ -104,6 +104,7 @@ To start Storybook locally, run the following command:
 
 ```bash
 npm run storybook
+```
 
 ## Continuous Integration
 
