@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   // Enable source maps for production
   productionBrowserSourceMaps: true,
+  serverExternalPackages: ["@electric-sql/pglite"],
   webpack: (config, { dev }) => {
     if (dev) {
       config.devtool = 'source-map'; // Enable source maps in development

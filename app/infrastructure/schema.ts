@@ -1,7 +1,8 @@
-import { pgTable } from "drizzle-orm/pg-core";
-import { serial, text } from "drizzle-orm/pg-core";
+import { integer, pgTable, text, varchar } from "drizzle-orm/pg-core";
 
-export const todos = pgTable("todos", {
-    id: serial("id").primaryKey(),
+export const todos = pgTable("todo", {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     title: text("title").notNull(),
 });
+
+export type Todo = typeof todos.$inferSelect;

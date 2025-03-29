@@ -4,10 +4,12 @@ import { drizzleDb } from "../db";
 import { todos } from "../schema";
 import { ITodoRepository } from "@/application/interfaces/ITodoRepository";
 import { Todo } from "@/domain/entities/Todo";
+import { PGlite } from "@electric-sql/pglite";
 
 export class TodoRepositoryPGLite implements ITodoRepository {
     constructor() {
-        // drizzleDb.createTable(todos).ifNotExists().run();
+
+        // drizzleDb.execute("CREATE TABLE IF NOT EXISTS todos (id SERIAL PRIMARY KEY, title VARCHAR(255) NOT NULL);");
     }
 
     async addTodo(todo: { title: string }) {
@@ -15,7 +17,14 @@ export class TodoRepositoryPGLite implements ITodoRepository {
     }
 
     async getTodos() {
-        return await drizzleDb.select().from(todos);
+        try {
+            const result = await drizzleDb.select().from(todos);
+            console.log(result);
+            return result;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
 
     async getTodoById(id: number): Promise<Todo | null> {
