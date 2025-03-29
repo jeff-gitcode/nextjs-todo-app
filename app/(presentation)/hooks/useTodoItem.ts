@@ -15,7 +15,7 @@ export function useTodoItem() {
 
   const pathname = usePathname();
 
-  const id = pathname.split("/").pop() || "";
+  const id = Number(pathname.split("/").pop()) || 0;
 
   const queryClient = useQueryClient();
 
@@ -26,12 +26,12 @@ export function useTodoItem() {
     {
       queryKey: ["todo", id], // Unique query key for this query
       queryFn: async () => {
-        if (!id || id === "new") {
-          return new Todo("", "");
+        if (!id || id === 0) {
+          return new Todo(0, "");
         }
         return await todoApiService.getById(id);
       },// Fetch the todo by ID
-      enabled: !!id && id !== "new", // Enable only if id is provided
+      enabled: !!id && id !== 0, // Enable only if id is provided
       refetchOnWindowFocus: false, // Disable refetch on window
       // onSuccess: (data) => {
       //   form.reset({ title: data.title }); // Populate the form with fetched data
@@ -46,7 +46,7 @@ export function useTodoItem() {
 
   const addTodoMutation = useMutation(
     {
-      mutationFn: (title: string) => todoApiService.create({ id: "", title }),
+      mutationFn: (title: string) => todoApiService.create({ id: 0, title }),
       onSuccess: (newTodo: Todo) => {
         console.log("New todo", newTodo);
         toast.success("Todo added successfully!");
@@ -83,8 +83,8 @@ export function useTodoItem() {
     }
   );
 
-  const handleUpdate = (id: string, title: string): void => {
-    if (id === "") {
+  const handleUpdate = (id: number, title: string): void => {
+    if (id === 0) {
       addTodoMutation.mutate(title);
     } else {
       const updatedTodo = new Todo(
@@ -95,7 +95,7 @@ export function useTodoItem() {
     }
   };
 
-  const newTodo = todo || new Todo("", "");
+  const newTodo = todo || new Todo(0, "");
 
   return {
     todo: newTodo,

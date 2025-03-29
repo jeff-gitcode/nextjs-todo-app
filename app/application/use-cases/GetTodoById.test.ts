@@ -21,7 +21,7 @@ describe("GetTodoById", () => {
     });
 
     it("calls repository.getTodoById with the correct id", async () => {
-        const todoId = "123";
+        const todoId = 123;
 
         await getTodoByIdUseCase.execute(todoId);
 
@@ -30,7 +30,7 @@ describe("GetTodoById", () => {
     });
 
     it("returns the correct todo when repository.getTodoById resolves successfully", async () => {
-        const todoId = "123";
+        const todoId = 123;
         const mockTodo: Todo = { id: todoId, title: "Sample Todo" };
 
         mockRepository.getTodoById.mockResolvedValueOnce(mockTodo);
@@ -43,7 +43,7 @@ describe("GetTodoById", () => {
     });
 
     it("throws an error if repository.getTodoById fails", async () => {
-        const todoId = "123";
+        const todoId = 123;
         const error = new Error("Failed to fetch todo");
 
         mockRepository.getTodoById.mockRejectedValueOnce(error);

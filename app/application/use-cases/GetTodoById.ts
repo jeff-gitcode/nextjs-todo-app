@@ -4,8 +4,7 @@ import { ITodoRepository } from "../interfaces/ITodoRepository";
 export class GetTodoById {
     constructor(private readonly repository: ITodoRepository) { }
 
-    async execute(id: string) {
-        console.log('GetTodoById.execute()', id);
+    async execute(id: number) {
         return await this.repository.getTodoById(id);
     }
 }   

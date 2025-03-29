@@ -16,7 +16,7 @@ describe("TodoItem Component", () => {
   const mockOnDelete = jest.fn();
 
   const mockTodo: Todo = {
-    id: "1",
+    id: 1,
     title: "Sample Todo",
   };
 

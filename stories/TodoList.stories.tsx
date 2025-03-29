@@ -25,8 +25,8 @@ const Template: StoryFn<typeof TodoList> = (args) => <TodoList {...args} />;
 export const Default = Template.bind({});
 Default.args = {
     todos: [
-        { id: "1", title: "First Todo" },
-        { id: "2", title: "Second Todo" },
+        { id: 1, title: "First Todo" },
+        { id: 2, title: "Second Todo" },
     ] as Todo[],
 };
 

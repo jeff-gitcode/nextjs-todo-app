@@ -13,7 +13,7 @@ export default class ApiService<T> {
         return await response.json();
     }
 
-    async getById(id: string): Promise<T> {
+    async getById(id: number): Promise<T> {
         const response = await fetch(`${this.baseUrl}/${id}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch resource with ID ${id}: ${response.statusText}`);
@@ -35,7 +35,7 @@ export default class ApiService<T> {
         return await response.json();
     }
 
-    async update(id: string, data: Partial<T>): Promise<T> {
+    async update(id: number, data: Partial<T>): Promise<T> {
         const response = await fetch(`${this.baseUrl}/${id}`, {
             method: 'PUT',
             headers: {
@@ -49,7 +49,7 @@ export default class ApiService<T> {
         return await response.json();
     }
 
-    async delete(id: string): Promise<void> {
+    async delete(id: number): Promise<void> {
         const response = await fetch(`${this.baseUrl}/${id}`, {
             method: 'DELETE',
         });

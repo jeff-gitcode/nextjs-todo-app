@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { useCases } from "@/(presentation)/di";
 
 // delete todo
-export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }): Promise<Response> {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: number }> }): Promise<Response> {
     const { id } = await params;
     try {
         const todo = await useCases.getTodoById.execute(id); // Check if the todo exists
@@ -17,7 +17,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 }
 
 // get todo by id
-export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }): Promise<Response> {
+export async function GET(req: Request, { params }: { params: Promise<{ id: number }> }): Promise<Response> {
     const { id } = await params;
     try {
         const todo = await useCases.getTodoById.execute(id);
@@ -31,7 +31,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
 }
 
 // update todo
-export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }): Promise<Response> {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: number }> }): Promise<Response> {
     const { id } = await params;
     const { title } = await req.json();
     try {

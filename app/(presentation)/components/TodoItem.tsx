@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 interface TodoItemProps {
     todo: Todo;
-    onUpdate: (id: string, title: string) => void;
+    onUpdate: (id: number, title: string) => void;
 }
 
 const TodoItem: FC<TodoItemProps> = ({ todo, onUpdate }) => {

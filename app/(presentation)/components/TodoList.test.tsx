@@ -9,8 +9,8 @@ describe("TodoList Component", () => {
     const mockOnDelete = jest.fn();
 
     const mockTodos: Todo[] = [
-        { id: "1", title: "First Todo" },
-        { id: "2", title: "Second Todo" },
+        { id: 1, title: "First Todo" },
+        { id: 2, title: "Second Todo" },
     ];
 
     beforeEach(() => {

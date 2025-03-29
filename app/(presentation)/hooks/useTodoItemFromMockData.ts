@@ -7,7 +7,7 @@ import { todoSchema, TodoFormValues } from "@/domain/schemas/todoSchema";
 import ApiService from "@/infrastructure/services/ApiService";
 
 interface UseTodoItemProps {
-    id: string;
+    id: number;
 }
 
 export function useTodoItemFromMockData({ id }: UseTodoItemProps) {

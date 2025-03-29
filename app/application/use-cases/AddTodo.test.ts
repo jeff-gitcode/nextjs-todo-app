@@ -21,7 +21,7 @@ describe("AddTodo", () => {
     });
 
     it("calls repository.addTodo with the correct todo", async () => {
-        const todo: Todo = { id: "1", title: "Test Todo" };
+        const todo: Todo = { id: 1, title: "Test Todo" };
 
         await addTodoUseCase.execute(todo);
 
@@ -30,7 +30,7 @@ describe("AddTodo", () => {
     });
 
     it("throws an error if repository.addTodo fails", async () => {
-        const todo: Todo = { id: "1", title: "Test Todo" };
+        const todo: Todo = { id: 1, title: "Test Todo" };
         const error = new Error("Failed to add todo");
 
         mockRepository.addTodo.mockRejectedValueOnce(error);

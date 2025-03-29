@@ -20,7 +20,7 @@ export function useTodoList() {
 
     const deleteTodoMutation = useMutation(
         {
-            mutationFn: (id: string) => todoApiService.delete(id),
+            mutationFn: (id: number) => todoApiService.delete(id),
             onSuccess: () => {
                 toast.success("Todo deleted successfully!");
                 queryClient.invalidateQueries({ queryKey: ["todos"] });
@@ -41,11 +41,11 @@ export function useTodoList() {
         // addTodoMutation.mutate(title);
     };
 
-    const handleDelete = (id: string) => {
+    const handleDelete = (id: number) => {
         deleteTodoMutation.mutate(id);
     };
 
-    const navigateToTodoItem = (id: string) => {
+    const navigateToTodoItem = (id: number) => {
         router.push(`/pages/todo/${id}`);
     };
 

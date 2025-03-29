@@ -28,8 +28,8 @@ describe("API Route - /api/todos", () => {
     describe("GET", () => {
         it("calls useCases.getTodos.execute and returns todos in JSON format", async () => {
             const mockTodos = [
-                { id: "1", title: "First Todo" },
-                { id: "2", title: "Second Todo" },
+                { id: 1, title: "First Todo" },
+                { id: 2, title: "Second Todo" },
             ];
             (useCases.getTodos.execute as jest.Mock).mockResolvedValueOnce(mockTodos);
 
@@ -50,7 +50,7 @@ describe("API Route - /api/todos", () => {
             const response = await POST(mockRequest);
 
             expect(mockRequest.json).toHaveBeenCalledTimes(1);
-            expect(useCases.addTodo.execute).toHaveBeenCalledWith(new Todo("", "New Todo"));
+            expect(useCases.addTodo.execute).toHaveBeenCalledWith(new Todo(0, "New Todo"));
             expect(NextResponse.json).toHaveBeenCalledWith({ message: "Todo added successfully" });
             expect(response).toEqual({ message: "Todo added successfully" });
         });

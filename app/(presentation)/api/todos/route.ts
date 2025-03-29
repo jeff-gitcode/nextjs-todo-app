@@ -12,6 +12,6 @@ export async function GET(): Promise<Response> {
 // Add a new todo
 export async function POST(req: Request): Promise<Response> {
     const { title } = await req.json();
-    await useCases.addTodo.execute(new Todo("", title));
+    await useCases.addTodo.execute(new Todo(0, title));
     return NextResponse.json({ message: "Todo added successfully" });
 }

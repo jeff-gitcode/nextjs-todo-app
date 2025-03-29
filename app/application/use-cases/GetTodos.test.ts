@@ -28,8 +28,8 @@ describe("GetTodos", () => {
 
     it("returns the correct list of todos when repository.getTodos resolves successfully", async () => {
         const mockTodos: Todo[] = [
-            { id: "1", title: "First Todo" },
-            { id: "2", title: "Second Todo" },
+            { id: 1, title: "First Todo" },
+            { id: 2, title: "Second Todo" },
         ];
 
         mockRepository.getTodos.mockResolvedValueOnce(mockTodos);

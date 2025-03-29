@@ -10,7 +10,7 @@ import { createMock, getMock, render } from "storybook-addon-module-mock";
 // }));
 // mock useTodoItem by fn, don't use jest.mock
 // const mockUseTodoItem = fn(() => ({
-//     todo: { id: "1", title: "Sample Todo" },
+//     todo: { id: 1, title: "Sample Todo" },
 //     loading: false,
 //     error: null,
 // }));
@@ -55,13 +55,13 @@ export const Update: Story = {
         }
     },
     args: {
-        todo: { id: "1", title: "Sample Todo" },
+        todo: { id: 1, title: "Sample Todo" },
         onUpdate: fn(),
     },
     play: async ({ canvasElement, parameters }) => {
         const mockUseTodoItem = getMock(parameters, actual, 'useTodoItem');
         mockUseTodoItem.mockImplementation(() => ({
-            todo: { id: "1", title: "Sample Todo" },
+            todo: { id: 1, title: "Sample Todo" },
             loading: false,
             error: "",
             handleUpdate: fn(),
@@ -94,7 +94,7 @@ export const Add: Story = {
 
                 const mockUseTodoItem = createMock(actual, "useTodoItem");
                 mockUseTodoItem.mockImplementation(() => ({
-                    todo: { id: "", title: "" }, // Empty fields for adding a new todo
+                    todo: { id: 0, title: "" }, // Empty fields for adding a new todo
                     loading: false,
                     error: null,
                     handleUpdate: fn(),
@@ -105,7 +105,7 @@ export const Add: Story = {
         },
     },
     args: {
-        todo: { id: "", title: "" }, // Empty fields for adding a new todo
+        todo: { id: 0, title: "" }, // Empty fields for adding a new todo
         onUpdate: fn(),
     },
     play: async ({ canvasElement, parameters }) => {

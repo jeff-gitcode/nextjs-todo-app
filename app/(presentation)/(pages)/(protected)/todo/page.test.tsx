@@ -21,8 +21,8 @@ describe("TodoListPage", () => {
         jest.clearAllMocks();
         (useTodoList as jest.Mock).mockReturnValue({
             todos: [
-                { id: "1", title: "First Todo" },
-                { id: "2", title: "Second Todo" },
+                { id: 1, title: "First Todo" },
+                { id: 2, title: "Second Todo" },
             ],
             isLoading: false,
             isError: false,
@@ -75,8 +75,8 @@ describe("TodoListPage", () => {
         // expect(TodoList).toHaveBeenCalledWith(
         //     {
         //         todos: [
-        //             { id: "1", title: "First Todo" },
-        //             { id: "2", title: "Second Todo" },
+        //             { id: 1, title: "First Todo" },
+        //             { id: 2, title: "Second Todo" },
         //         ],
         //         onUpdate: mockNavigateToTodoItem,
         //         onDelete: mockHandleDelete,

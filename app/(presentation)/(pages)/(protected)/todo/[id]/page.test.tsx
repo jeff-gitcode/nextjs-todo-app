@@ -27,7 +27,7 @@ describe("TodoItemPage", () => {
             handleDelete: mockHandleDelete,
         });
         (useTodoItem as jest.Mock).mockReturnValue({
-            todo: { id: "1", title: "Sample Todo" },
+            todo: { id: 1, title: "Sample Todo" },
             loading: false,
             error: null,
             handleUpdate: mockHandleUpdate,
@@ -69,7 +69,7 @@ describe("TodoItemPage", () => {
 
         // expect(TodoItem).toHaveBeenCalledWith(
         //     {
-        //         todo: { id: "1", title: "Sample Todo" },
+        //         todo: { id: 1, title: "Sample Todo" },
         //         onUpdate: mockHandleUpdate,
         //         onDelete: mockHandleDelete,
         //     },

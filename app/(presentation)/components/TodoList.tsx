@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 
 interface TodoListProps {
   todos: Todo[];
-  onUpdate: (id: string) => void;
-  onDelete: (id: string) => void;
+  onUpdate: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onUpdate, onDelete }) => {

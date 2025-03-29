@@ -48,10 +48,10 @@ describe("useTodoList - deleteTodoMutation", () => {
 
         const { result } = renderHook(() => useTodoList());
         await act(async () => {
-            result.current.handleDelete("123");
+            result.current.handleDelete(123);
         });
 
-        expect(mockDelete).toHaveBeenCalledWith("123");
+        expect(mockDelete).toHaveBeenCalledWith(123);
         expect(mockDelete).toHaveBeenCalledTimes(1);
     });
 
@@ -64,7 +64,7 @@ describe("useTodoList - deleteTodoMutation", () => {
         }));
 
         (useMutation as jest.Mock).mockReturnValue({
-            mutate: (id: string) => {
+            mutate: (id: number) => {
                 mockDelete(id).then(() => {
                     mockSuccess(); // Manually trigger onSuccess
                     toast.success("Todo deleted successfully!");
@@ -78,10 +78,10 @@ describe("useTodoList - deleteTodoMutation", () => {
         const { handleDelete } = result.current;
 
         await act(async () => {
-            handleDelete("123");
+            handleDelete(123);
         });
 
-        expect(mockDelete).toHaveBeenCalledWith("123");
+        expect(mockDelete).toHaveBeenCalledWith(123);
         expect(mockDelete).toHaveBeenCalledTimes(1);
         expect(mockSuccess).toHaveBeenCalled();
         expect(toast.success).toHaveBeenCalledWith("Todo deleted successfully!");
@@ -97,7 +97,7 @@ describe("useTodoList - deleteTodoMutation", () => {
         }));
 
         (useMutation as jest.Mock).mockReturnValue({
-            mutate: (id: string) => {
+            mutate: (id: number) => {
                 mockDelete(id).catch(() => {
                     mockError(); // Manually trigger onError
                     toast.error("Failed to delete todo");
@@ -110,10 +110,10 @@ describe("useTodoList - deleteTodoMutation", () => {
         const { handleDelete } = result.current;
 
         await act(async () => {
-            handleDelete("123");
+            handleDelete(123);
         });
 
-        expect(mockDelete).toHaveBeenCalledWith("123");
+        expect(mockDelete).toHaveBeenCalledWith(123);
         expect(mockDelete).toHaveBeenCalledTimes(1);
         expect(mockError).toHaveBeenCalled();
         expect(toast.error).toHaveBeenCalledWith("Failed to delete todo");

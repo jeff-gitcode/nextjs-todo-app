@@ -17,7 +17,7 @@ const mockUpdateTodoMutate = jest.fn();
 jest.mock("@tanstack/react-query", () => ({
     ...jest.requireActual("@tanstack/react-query"),
     useQuery: jest.fn(() => ({
-        data: { id: "1", title: "Sample Todo" },
+        data: { id: 1, title: "Sample Todo" },
         isLoading: false,
         isError: false,
     })),
@@ -54,7 +54,7 @@ describe("useTodoItem", () => {
     it("fetches a todo by ID using useQuery", async () => {
         const { result } = renderHook(() => useTodoItem(), { wrapper });
 
-        expect(result.current.todo).toEqual({ id: "1", title: "Sample Todo" });
+        expect(result.current.todo).toEqual({ id: 1, title: "Sample Todo" });
         expect(result.current.loading).toBe(false);
         expect(result.current.error).toBeNull();
     });
@@ -69,7 +69,7 @@ describe("useTodoItem", () => {
         const { result } = renderHook(() => useTodoItem(), { wrapper });
 
         expect(result.current.loading).toBe(true);
-        expect(result.current.todo).toEqual(new Todo("", ""));
+        expect(result.current.todo).toEqual(new Todo(0, ""));
     });
 
     it("returns an error state when isError is true", async () => {
@@ -83,7 +83,7 @@ describe("useTodoItem", () => {
         const { result } = renderHook(() => useTodoItem(), { wrapper });
 
         expect(result.current.error).toBe("Failed to fetch todo");
-        expect(result.current.todo).toEqual(new Todo("", ""));
+        expect(result.current.todo).toEqual(new Todo(0, ""));
     });
 
     it("calls updateTodoMutation when handleUpdate is called with an existing todo", async () => {
@@ -95,10 +95,10 @@ describe("useTodoItem", () => {
         const { result } = renderHook(() => useTodoItem(), { wrapper });
 
         await act(async () => {
-            result.current.handleUpdate("1", "Updated Todo");
+            result.current.handleUpdate(1, "Updated Todo");
         });
 
-        expect(mockUpdateTodoMutate).toHaveBeenCalledWith({ id: "1", title: "Updated Todo" });
+        expect(mockUpdateTodoMutate).toHaveBeenCalledWith({ id: 1, title: "Updated Todo" });
         // expect(toast.success).toHaveBeenCalledWith("Todo updated successfully!");
     });
 
@@ -110,7 +110,7 @@ describe("useTodoItem", () => {
         const { result } = renderHook(() => useTodoItem(), { wrapper });
 
         await act(async () => {
-            result.current.handleUpdate("", "New Todo");
+            result.current.handleUpdate(0, "New Todo");
         });
 
         // expect(mockAddTodoMutate).toHaveBeenCalledWith(
@@ -139,11 +139,11 @@ describe("useTodoItem", () => {
         const { result } = renderHook(() => useTodoItem(), { wrapper });
 
         await act(async () => {
-            result.current.handleUpdate("1", "Updated Todo");
+            result.current.handleUpdate(1, "Updated Todo");
         });
 
         // expect(mockMutate).toHaveBeenCalledWith(
-        //     { id: "1", title: "Updated Todo" },
+        //     { id: 1, title: "Updated Todo" },
         //     expect.any(Object)
         // );
         expect(mockMutate).toHaveBeenCalledTimes(1);

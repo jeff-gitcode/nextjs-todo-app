@@ -20,7 +20,7 @@ describe("DeleteTodo", () => {
     });
 
     it("calls repository.deleteTodo with the correct id", async () => {
-        const todoId = "123";
+        const todoId = 123;
 
         await deleteTodoUseCase.execute(todoId);
 
@@ -29,7 +29,7 @@ describe("DeleteTodo", () => {
     });
 
     it("throws an error if repository.deleteTodo fails", async () => {
-        const todoId = "123";
+        const todoId = 123;
         const error = new Error("Failed to delete todo");
 
         mockRepository.deleteTodo.mockRejectedValueOnce(error);
