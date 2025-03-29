@@ -1,39 +1,55 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useUser, SignOutButton } from "@clerk/nextjs";
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from "@/components/ui/navigation-menu";
 
 export default function NavMenu() {
-    const router = useRouter();
+  const router = useRouter();
+  const { user } = useUser();
 
-    const navigateToAuth = () => {
-        router.push("/auth");
-    };
-
-    const navigateToTodo = () => {
-        router.push("/pages/todo");
-    };
-
-    return (
-        <NavigationMenu className="bg-gray-100 shadow-md">
-            <NavigationMenuList className="flex space-x-4 p-4">
-                <NavigationMenuItem>
-                    <NavigationMenuLink
-                        className="cursor-pointer text-sm font-medium"
-                        onClick={navigateToAuth}
-                    >
-                        Auth
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink
-                        className="cursor-pointer text-sm font-medium"
-                        onClick={navigateToTodo}
-                    >
-                        Todo
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu>
-    );
+  return (
+    <NavigationMenu className="bg-gray-100 shadow-md">
+      <NavigationMenuList className="flex space-x-4 p-4">
+        {!user ? (
+          <>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className="cursor-pointer text-sm font-medium"
+                onClick={() => router.push("/sign-in")}
+              >
+                Sign In
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className="cursor-pointer text-sm font-medium"
+                onClick={() => router.push("/sign-up")}
+              >
+                Sign Up
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </>
+        ) : (
+          <>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className="cursor-pointer text-sm font-medium"
+                onClick={() => router.push("/protected")}
+              >
+                Protected
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <SignOutButton>
+                <NavigationMenuLink className="cursor-pointer text-sm font-medium">
+                  Sign Out
+                </NavigationMenuLink>
+              </SignOutButton>
+            </NavigationMenuItem>
+          </>
+        )}
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
 }

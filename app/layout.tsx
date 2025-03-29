@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 
 import NavMenu from "@/(presentation)/components/NavMenu";
 import { Providers } from './providers';
+import { ClerkProvider } from '@clerk/nextjs';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -15,20 +16,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang="en">
-            <body>
-                <Providers>
-                    {/* Navigation Menu */}
-                    <header className="bg-gray-100 shadow-md">
-                        <div className="container mx-auto p-4">
-                            <NavMenu />
-                        </div>
-                    </header>
-                    {/* Main Content */}
-                    <Toaster position="bottom-center" richColors />
-                    <main className="container mx-auto p-4">{children}</main>
-                </Providers>
-            </body>
-        </html>
+        <ClerkProvider>
+            <html lang="en">
+                <body>
+                    <Providers>
+                        {/* Navigation Menu */}
+                        <header className="bg-gray-100 shadow-md">
+                            <div className="container mx-auto p-4">
+                                <NavMenu />
+                            </div>
+                        </header>
+                        {/* Main Content */}
+                        <Toaster position="bottom-center" richColors />
+                        <main className="container mx-auto p-4">{children}</main>
+                    </Providers>
+                </body>
+            </html>
+        </ClerkProvider>
     )
 }
