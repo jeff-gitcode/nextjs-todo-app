@@ -1,4 +1,4 @@
-import { TodoRepository } from "@/infrastructure/repositories/TodoRepository";
+import { TodoRepositoryPGLite } from './../infrastructure/repositories/TodoRepositoryPGLite';
 import { AddTodo } from "@/application/use-cases/AddTodo";
 import { GetTodos } from "@/application/use-cases/GetTodos";
 import { DeleteTodo } from "@/application/use-cases/DeleteTodo";
@@ -6,7 +6,7 @@ import { GetTodoById } from "@/application/use-cases/GetTodoById";
 import { UpdateTodo } from "@/application/use-cases/UpdateTodo";
 
 // Instantiate the repository (Infrastructure Layer)
-const repository = new TodoRepository();
+const repository = new TodoRepositoryPGLite();
 
 // Instantiate use cases (Application Layer)
 export const useCases = {

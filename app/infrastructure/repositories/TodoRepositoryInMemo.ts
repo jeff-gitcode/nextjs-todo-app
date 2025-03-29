@@ -1,7 +1,7 @@
 import { ITodoRepository } from "app/application/interfaces/ITodoRepository";
 import { Todo } from "app/domain/entities/Todo";
 
-export class TodoRepository implements ITodoRepository {
+export class TodoRepositoryInMemo implements ITodoRepository {
     private todos: Todo[] = [
         new Todo(1, "Todo 1"),
         new Todo(2, "Todo 2"),

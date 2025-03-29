@@ -5,7 +5,7 @@ import { todos } from "../schema";
 import { ITodoRepository } from "@/application/interfaces/ITodoRepository";
 import { Todo } from "@/domain/entities/Todo";
 
-export class TodoRepository implements ITodoRepository {
+export class TodoRepositoryPGLite implements ITodoRepository {
     constructor() {
         // drizzleDb.createTable(todos).ifNotExists().run();
     }
