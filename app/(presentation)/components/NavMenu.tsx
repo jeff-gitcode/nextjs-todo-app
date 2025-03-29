@@ -35,7 +35,7 @@ export default function NavMenu() {
             <NavigationMenuItem>
               <NavigationMenuLink
                 className="cursor-pointer text-sm font-medium"
-                onClick={() => router.push("/protected")}
+                onClick={() => router.push("/todo")}
               >
                 Protected
               </NavigationMenuLink>

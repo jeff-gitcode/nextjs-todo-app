@@ -37,7 +37,7 @@ export function useTodoList() {
     );
 
     const handleAddTodo = (title: string) => {
-        router.push(`/pages/todo/new`);
+        router.push(`/todo/new`);
         // addTodoMutation.mutate(title);
     };
 
@@ -46,7 +46,7 @@ export function useTodoList() {
     };
 
     const navigateToTodoItem = (id: number) => {
-        router.push(`/pages/todo/${id}`);
+        router.push(`/todo/${id}`);
     };
 
     const navigateToHome = () => {
@@ -54,7 +54,7 @@ export function useTodoList() {
     };
 
     const navigateToTodoList = () => {
-        router.push("/pages/todo");
+        router.push("/todo");
     };
 
     return {
