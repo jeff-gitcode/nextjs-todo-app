@@ -37,3 +37,25 @@ Content-Type: application/json
 ### Delete a Todo
 DELETE {{baseUrl}}/api/todos/{{todoId}}
 Content-Type: application/json
+
+###
+
+### Sign-Up
+POST http://localhost:3000/api/auth/sign-up
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+###
+
+### Sign-In
+POST http://localhost:3000/api/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
