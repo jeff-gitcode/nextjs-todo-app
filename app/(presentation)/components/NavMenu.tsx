@@ -7,6 +7,7 @@ import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuL
 export default function NavMenu() {
   const router = useRouter();
   const { user } = useUser();
+  console.log(process.env.DATABASE_URL);
 
   return (
     <NavigationMenu className="bg-gray-100 shadow-md">
